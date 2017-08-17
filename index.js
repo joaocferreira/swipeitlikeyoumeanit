@@ -1,42 +1,47 @@
-const internals = {};
-const sensibility = 1;
-let initial = {};
+var internals = {};
+var defaultSensibility;
+var initial = {};
 
 function touchstart(event) {
-    initial = {
-      x: event.touches[0].screenX,
-      y: event.touches[0].screenY,
-    };
-  }
+  initial = {
+    x: event.touches[0].screenX,
+    y: event.touches[0].screenY,
+  };
+}
 
 function touchend(event) {
-  const x = initial.x - event.changedTouches[0].screenX;
-  const y = initial.y - event.changedTouches[0].screenY;
-  const xAbs= Math.abs(x);
-  const yAbs = Math.abs(y);
+  var x = initial.x - event.changedTouches[0].screenX;
+  var y = initial.y - event.changedTouches[0].screenY;
+  var xAbs = Math.abs(x);
+  var yAbs = Math.abs(y);
 
-  if(xAbs >  yAbs ) {
-    if(x > 0) {
+  if (xAbs > yAbs) {
+    if (xAbs <= defaultSensibility) {
+      return;
+    } else if (x < 0) {
       internals['left'] && internals['left']();
     } else {
       internals['right'] && internals['right']();
     }
   } else {
-    if(y > 0) {
+    if (yAbs <= defaultSensibility) {
+      return;
+    } else if (y < 0) {
       internals['top'] && internals['top']();
     } else {
       internals['bottom'] && internals['bottom']();
     }
-  }  
+  }
 }
 
-function swiper(element) {
+function swiper(element, sensibility) {
+  defaultSensibility = sensibility || 0;
   element.addEventListener('touchstart', touchstart);
   element.addEventListener('touchend', touchend)
 
   return {
     on(eventName, callback) {
-      if(typeof callback === 'function') {
+      if (typeof callback === 'function') {
         internals[eventName] = callback;
       }
     },
@@ -50,4 +55,4 @@ function swiper(element) {
   }
 }
 
-export default swiper;
+module.exports = swiper;
