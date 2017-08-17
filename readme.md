@@ -22,11 +22,11 @@ Import it
 import swipeitlikeyoumeanit from 'swipeitlikeyoumeanit';
 ```
 
-Instanciate it with any DOM element
+Instanciate it with any DOM element, and a optional number corresponding to the sensibility. (How much you must move to trigger the event.) Default to 0.
 
 ```
 
-var mySwiper = swipeitlikeyoumeanit(document);
+var mySwiper = swipeitlikeyoumeanit(document, 50);
 ```
 
 Bind the callbacks
