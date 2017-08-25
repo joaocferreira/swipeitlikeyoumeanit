@@ -1,3 +1,5 @@
+'use strict';
+
 var internals = {};
 var defaultSensibility;
 var initial = {};
@@ -37,22 +39,22 @@ function touchend(event) {
 function swiper(element, sensibility) {
   defaultSensibility = sensibility || 0;
   element.addEventListener('touchstart', touchstart);
-  element.addEventListener('touchend', touchend)
+  element.addEventListener('touchend', touchend);
 
   return {
-    on(eventName, callback) {
+    on: function on(eventName, callback) {
       if (typeof callback === 'function') {
         internals[eventName] = callback;
       }
     },
-    off(eventName) {
+    off: function off(eventName) {
       delete internals[eventName];
     },
-    dispose() {
+    dispose: function dispose() {
       element.removeEventListener('touchstart', mouseDown);
-      element.removeEventListener('touchend', mouseUp)
+      element.removeEventListener('touchend', mouseUp);
     }
-  }
+  };
 }
 
 module.exports = swiper;
