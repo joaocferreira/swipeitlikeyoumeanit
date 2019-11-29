@@ -1,3 +1,4 @@
+
 # swipeitlikeyoumeanit
 
 Detect swipe actions for top, bottom, left and right directions
