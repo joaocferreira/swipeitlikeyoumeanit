@@ -63,3 +63,5 @@ Get rid of it
 ```
 mySwiper.dispose();
 ```
+
+
